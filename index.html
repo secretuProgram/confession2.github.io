@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Confession 2</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(158, 36, 71);
+            font-size: 16px;
+            /* Adjust as needed */
+            line-height: 1.6;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            height: 100%;
+            /* Added */
+            margin: 0;
+            /* Added */
+        }
+
+        html,
+        body {
+            height: 100%;
+            /* Added */
+            margin: 0;
+            /* Added */
+            padding: 0;
+            /* Added */
+        }
+
+        .col-md-12 {
+            min-height: 100%;
+        }
+
+        .heart {
+            position: absolute;
+            opacity: 0;
+            animation: falling 2s linear infinite;
+        }
+
+        @keyframes falling {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .heart-container {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            animation: heartbeat 1s infinite;
+        }
+
+        .centered-image {
+            max-width: 100%;
+            height: auto;
+            clip-path: url(#heartClip);
+            fill: url(#fadeGradient);
+        }
+
+
+        @media (min-width: 200px) {
+            .heart-container {
+                margin-top: 50%;
+                left: 25%;
+                width: 200px;
+            }
+        }
+
+        @media (min-width: 400px) {
+            .heart-container {
+                margin-top: 75%;
+                left: 27%;
+                width: 200px;
+            }
+        }
+
+        @media (min-width: 700px) {
+            .heart-container {
+                margin-top: 50%;
+                left: 25%;
+                width: 400px;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .heart-container {
+                margin-top: 40%;
+                left: 25%;
+            }
+        }
+
+        @media (min-width: 1000px) {
+            .heart-container {
+                margin-top: 10%;
+                left: 27%;
+            }
+        }
+
+
+        @media (min-width: 1280px) {
+            .heart-container {
+                margin-top: 10%;
+                left: 32%;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .heart-container {
+                margin-top: 10%;
+                left: 37%;
+            }
+
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: rgb(29, 29, 29);
+            color: white;
+            text-align: center;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <audio id="bgMusic" autoplay loop>
+        <source src="shotildr.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heart-container">
+                    <svg width="0" height="0">
+                        <defs>
+                            <clipPath id="heartClip" clipPathUnits="objectBoundingBox">
+                                <path d="M0.5,0.15 
+                                         C0.45,0.05 0.3,0 0.2,0 
+                                         C0.05,0 0,0.2 0,0.35 
+                                         C0,0.5 0.25,0.75 0.5,1 
+                                         C0.75,0.75 1,0.5 1,0.35 
+                                         C1,0.2 0.95,0 0.8,0 
+                                         C0.7,0 0.55,0.05 0.5,0.15 
+                                         Z" />
+                            </clipPath>
+
+                            <linearGradient id="fadeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:pink;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:pink;stop-opacity:0" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <img src="heart1.jpg" class="centered-image" style="width: 400px;">
+                    <div id="lyrics" style="font-size: 20px; color: rgb(196, 228, 37); margin-top: 10px;"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="footer">
+            <p>from "Secret" of Immaculate Conception Institution of Arts and Technology</p>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.26/Tone.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const heartContainer = document.querySelector('.col-md-12');
+            
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement('span');
+                heart.className = 'heart';
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.animationDuration = `${Math.random() * 2 + 1}s`;
+                heart.style.color = 'white';
+                heart.innerHTML = 'I like you Sheena Rañon ❤';
+                heartContainer.appendChild(heart);
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const bgMusic = document.getElementById('bgMusic');
+            const lyricsData = [
+                { time: 1, lyric: "..." },
+                { time: 8, lyric: "[Intro] I don't want love (I don't want love)" },
+                { time: 13, lyric: "If love isn't from you (If love isn't from you)" },
+                { time: 18, lyric: "I don't want her (I don't want her)" },
+                { time: 22, lyric: "If she isn't you (If she isn't you)" },
+                { time: 27, lyric: "[Chorus] You're always on my mind, that's how much I care" },
+                { time: 32, lyric: "I can't think of a time, that you weren't there" },
+                { time: 36, lyric: "I know that I'd be lying if I didn't want you here" },
+                { time: 41, lyric: "'Cause, baby, I'm in love, and why can't you just live near?" },
+                { time: 47, lyric: "[Verse 1] Ngano layo kay ka? Wala ta'y mabuhat" },
+                { time: 52, lyric: "Kung diri ka sa akong tupad" },
+                { time: 54, lyric: "Adto ta'g cinema" },
+                { time: 56, lyric: "Human mangaon ka, kaon bisa'g asa," },
+                { time: 61, lyric: "ika'y pili, ako'y bayad, ako ra'y bahala" },
+                { time: 66, lyric: "..." },
+                { time: 75, lyric: "Ako ra'y bahala" },
+                { time: 79, lyric: "..." },
+                { time: 85, lyric: "Why do you live so far? (Why do you live so far?)" },
+                { time: 90, lyric: "Sayang kung LDR (Sayang kung LDR)" },
+                { time: 94, lyric: "'Cause I know what happens to them, They always fall apart" },
+                { time: 104, lyric: " But now you've changed my mind (But now you've changed my mind)" },
+                { time: 109, lyric: "'Cause you're the girl I want in life (You're the girl I want in life)" },
+                { time: 114, lyric: "I want you to have my heart" },
+                { time: 118, lyric: "You're mine and I am yours" },
+                { time: 123, lyric: "[Pre-Chorus] I don't want love (I don't want love)" },
+                { time: 128, lyric: "If love isn't from you (If love isn't from you)" },
+                { time: 133, lyric: "I don't want her (I don't want her)" },
+                { time: 137, lyric: "If she isn't you (If she isn't you)" },
+                { time: 142, lyric: "[Chorus] You're always on my mind, that's how much I care" },
+                { time: 147, lyric: "I can't think of a time, that you weren't there" },
+                { time: 152, lyric: "I know that I'd be lying if I didn't want you here" },
+                { time: 156, lyric: "'Cause, baby, I'm in love, and why can't you just live near?" },
+                { time: 161, lyric: "You're always on my mind, that's how much I care" },
+                { time: 166, lyric: "I can't think of a time, that you weren't there" },
+                { time: 171, lyric: "I know that I'd be lying if I didn't want you here" },
+                { time: 176, lyric: "'Cause, baby, I'm in love, and why can't you just live near?" },
+                { time: 180, lyric: "[Outro] But now you've changed my mind" },
+                { time: 185, lyric: "'Cause you're the girl I want in life" },
+                { time: 190, lyric: "I want you to have my heart" },
+                { time: 195, lyric: "You're mine and I am yours" },
+                { time: 200, lyric: "..." },
+                { time: 211, lyric: "..." },
+            ];
+
+            let currentIndex = 0;
+
+            bgMusic.addEventListener('timeupdate', function () {
+                const currentTime = Math.floor(bgMusic.currentTime);
+                const nextLyricTime = lyricsData[currentIndex].time;
+
+                if (currentTime >= nextLyricTime) {
+                    displayLyric(lyricsData[currentIndex].lyric);
+                    currentIndex++;
+
+                    if (currentIndex >= lyricsData.length) {
+                        currentIndex = 0;
+                    }
+                }
+            });
+
+            function displayLyric(text) {
+                const lyricsElement = document.getElementById('lyrics');
+                lyricsElement.textContent = text;
+            }
+
+            document.addEventListener('click', function () {
+                bgMusic.play();
+            });
+
+            bgMusic.addEventListener('ended', function () {
+                currentIndex = 0;
+            });
+
+            const heartImage = document.querySelector('.centered-image');
+            const images = [
+                'heart1.jpg',
+                'heart2.jpg',
+                'heart3.jpg',
+                'heart4.jpg',
+                'heart5.jpg',
+                'heart6.jpg',
+                'heart7.jpg',
+                'heart8.jpg',
+                'heart9.jpg',
+                'heart10.jpg',
+
+            ];
+
+            let currentImageIndex = 0;
+
+            function changeImage() {
+                heartImage.style.transition = 'opacity 2s';
+                heartImage.style.opacity = 0;
+
+                setTimeout(() => {
+                    heartImage.src = images[currentImageIndex];
+                    heartImage.style.opacity = 1;
+                }, 2000);
+
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+            }
+
+            setInterval(changeImage, 5000);
+        });
+
+
+    </script>
+</body>
+
+</html>
